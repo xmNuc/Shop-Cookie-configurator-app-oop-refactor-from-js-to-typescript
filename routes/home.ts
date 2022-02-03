@@ -1,6 +1,7 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 
-class HomeRouter {
+export class HomeRouter {
   constructor(cmapp) {
     this.cmapp = cmapp;
     this.router = express.Router();
@@ -29,7 +30,3 @@ class HomeRouter {
 const home = new HomeRouter();
 
 const homeRouter = express.Router();
-
-module.exports = {
-  HomeRouter,
-};

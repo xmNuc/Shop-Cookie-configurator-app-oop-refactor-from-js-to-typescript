@@ -1,7 +1,7 @@
-const handlebarsHelpers = {
-  upper: (str) => str.toUpperCase(),
+export const handlebarsHelpers = {
+  upper: (str: string) => str.toUpperCase(),
 
-  findPrice: (entries, selectedItem) => {
+  findPrice: (entries: [string, number][], selectedItem: string): number => {
     const found = entries.find((el) => el[0] === selectedItem);
 
     if (!found) {
@@ -10,10 +10,9 @@ const handlebarsHelpers = {
     const [, price] = found;
     return price;
   },
-  pricify: (price) => price.toFixed(2),
-  isNotInArray: (array, element) => !array.includes(element),
-};
+  pricify: (price: number): string => price.toFixed(2),
+  isNotInArray: (array: any[], element: any): boolean =>
+    !array.includes(element),
 
-module.exports = {
-  handlebarsHelpers,
+  isInArray: (array: any[], element: any): boolean => array.includes(element),
 };

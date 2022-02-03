@@ -1,7 +1,7 @@
 // const express = require('express');
-export express from 'express'
+import express from 'express';
 
-class ConfiguratorRouter {
+export class ConfiguratorRouter {
   constructor(cmapp) {
     this.cmapp = cmapp;
     this.router = express.Router();
@@ -69,7 +69,3 @@ class ConfiguratorRouter {
       });
   };
 }
-
-module.exports = {
-  ConfiguratorRouter,
-};

@@ -1,6 +1,7 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 
-class OrderRouter {
+export class OrderRouter {
   constructor(cmapp) {
     this.cmapp = cmapp;
     this.router = express.Router();
@@ -36,7 +37,3 @@ class OrderRouter {
       });
   };
 }
-
-module.exports = {
-  OrderRouter,
-};
