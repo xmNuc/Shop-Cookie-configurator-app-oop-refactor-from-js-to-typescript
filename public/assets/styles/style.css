@@ -1,0 +1,40 @@
+body {
+  background-color: dimgrey;
+  color: white;
+}
+
+.logo_img {
+  height: 30px;
+}
+.cookie-preview {
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+}
+
+.success {
+  border: 1px solid rgb(60, 255, 0);
+  padding: 10px;
+  background-color: rgb(115, 168, 102);
+}
+.error {
+  border: 1px solid red;
+  padding: 10px;
+  background-color: rgb(173, 132, 132);
+}
+
+button {
+  background: rgb(197, 184, 146);
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.btn-big {
+  font-size: 120%;
+  padding: 10px 10px;
+}
+.btn-big img {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-top;
+}

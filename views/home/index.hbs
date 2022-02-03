@@ -1,0 +1,24 @@
+<h1>Cookie shop. Configure youre own Cookie</h1>
+<h2>Select cookie base</h2>
+
+
+    {{> base-selector}}
+
+<h2>Select youre favorite addons</h2>
+
+    {{#each allAddons}}
+    {{#if (isNotInArray @root.cookie.addons this.[0])}}
+   <a href="/configurator/add-addon/{{this.[0]}}"> <button>Add {{this.[0]}} for {{this.[1]}} $</button></a>
+   {{/if}}
+    {{/each}}
+
+
+{{#if cookie.base}}
+{{>cookie-preview}}
+{{>addons}}
+<a  href="/order/summary"><button class="btn-big"><img src="/assets/images/shopping-card.png" alt=""> Order Now!</button></a>
+{{else}}
+<p><strong> Please sellect cookie to see preview</strong></p>
+{{> base-selector}}
+
+{{/if}}
