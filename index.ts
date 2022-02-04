@@ -13,7 +13,8 @@ import { ConfiguratorRouter } from './routes/configurator';
 import { OrderRouter } from './routes/order';
 import { handlebarsHelpers } from './utils/handlenars-helpers';
 import { COOKIE_BASES, COOKIE_ADDONS } from './data/cookies-data';
-import { Entries } from './typrs/entries';
+import { Entries } from './types/entries';
+import { MyRouter } from './types/my-router';
 
 export class CookieMakerApp {
   private app: Application;
@@ -21,7 +22,7 @@ export class CookieMakerApp {
     COOKIE_BASES,
     COOKIE_ADDONS,
   };
-  private readonly routers = [HomeRouter, ConfiguratorRouter];
+  private readonly routers = [HomeRouter, ConfiguratorRouter, OrderRouter];
 
   constructor() {
     this._configureApp();
@@ -48,7 +49,8 @@ export class CookieMakerApp {
 
   _setRoutes(): void {
     for (const router of this.routers) {
-      this.app.use(router.urlPrefix, new router(this).router);
+      const obj: MyRouter = new router(this);
+      this.app.use(obj.urlPrefix, obj.router);
     }
     // this.app.use(HomeRouter.urlPrefix, new HomeRouter(this).router);
     // this.app.use(
