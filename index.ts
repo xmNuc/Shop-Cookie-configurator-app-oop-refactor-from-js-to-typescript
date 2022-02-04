@@ -13,11 +13,11 @@ import { ConfiguratorRouter } from './routes/configurator';
 import { OrderRouter } from './routes/order';
 import { handlebarsHelpers } from './utils/handlenars-helpers';
 import { COOKIE_BASES, COOKIE_ADDONS } from './data/cookies-data';
-import { stringify } from 'querystring';
+import { Entries } from './typrs/entries';
 
 export class CookieMakerApp {
   private app: Application;
-  private data = {
+  public readonly data = {
     COOKIE_BASES,
     COOKIE_ADDONS,
   };
@@ -45,9 +45,9 @@ export class CookieMakerApp {
   }
 
   _setRoutes(): void {
-    this.app.use('/', new HomeRouter(this).router);
+    // this.app.use('/', new HomeRouter(this).router);
     this.app.use('/configurator', new ConfiguratorRouter(this).router);
-    this.app.use('/order', new OrderRouter(this).router);
+    // this.app.use('/order', new OrderRouter(this).router);
   }
 
   _run(): void {
@@ -65,14 +65,13 @@ export class CookieMakerApp {
     };
     return cookieAddons ? JSON.parse(cookieAddons) : [];
   }
-  getCookieSettings(req: Request):{
-    addons: string[],
-    base: string | undefined,
-    sum: number,
-    allBases: Map<string, number>
-    allAddons: Map<string, number>
-
-  }; {
+  getCookieSettings(req: Request): {
+    addons: string[];
+    base: string | undefined;
+    sum: number;
+    allBases: Entries;
+    allAddons: Entries;
+  } {
     const { cookieBase: base } = req.cookies as {
       cookieBase?: string;
     };
