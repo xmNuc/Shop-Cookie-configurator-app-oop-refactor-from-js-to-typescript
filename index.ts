@@ -21,6 +21,8 @@ export class CookieMakerApp {
     COOKIE_BASES,
     COOKIE_ADDONS,
   };
+  private readonly routers = [HomeRouter, ConfiguratorRouter];
+
   constructor() {
     this._configureApp();
     this._setRoutes();
@@ -45,9 +47,15 @@ export class CookieMakerApp {
   }
 
   _setRoutes(): void {
-    // this.app.use('/', new HomeRouter(this).router);
-    this.app.use('/configurator', new ConfiguratorRouter(this).router);
-    // this.app.use('/order', new OrderRouter(this).router);
+    for (const router of this.routers) {
+      this.app.use(router.urlPrefix, new router(this).router);
+    }
+    // this.app.use(HomeRouter.urlPrefix, new HomeRouter(this).router);
+    // this.app.use(
+    //   ConfiguratorRouter.urlPrefix,
+    //   new ConfiguratorRouter(this).router
+    // );
+    // // this.app.use('/order', new OrderRouter(this).router);
   }
 
   _run(): void {
