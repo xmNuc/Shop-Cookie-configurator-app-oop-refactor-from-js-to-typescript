@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { CookieMakerApp } from '..';
 
 export class ConfiguratorRouter {
-  private router: Router = Router();
+  public readonly router: Router = Router();
 
   constructor(private cmapp: CookieMakerApp) {
     this.setUpRoutes();

@@ -1,4 +1,4 @@
-type Entries = [string, number][];
+import { Entries } from '../typrs/entries';
 
 export const handlebarsHelpers = {
   upper: (str: string) => str.toUpperCase(),

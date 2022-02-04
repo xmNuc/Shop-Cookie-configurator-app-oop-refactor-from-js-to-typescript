@@ -1,22 +1,33 @@
 import * as express from 'express';
-import { json, static as expressStatic } from 'express';
+import {
+  Request,
+  Response,
+  Application,
+  json,
+  static as expressStatic,
+} from 'express';
 import * as cookieParser from 'cookie-parser';
-import * as hbs from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import { HomeRouter } from './routes/home';
 import { ConfiguratorRouter } from './routes/configurator';
 import { OrderRouter } from './routes/order';
 import { handlebarsHelpers } from './utils/handlenars-helpers';
 import { COOKIE_BASES, COOKIE_ADDONS } from './data/cookies-data';
+import { stringify } from 'querystring';
 
 export class CookieMakerApp {
+  private app: Application;
+  private data = {
+    COOKIE_BASES,
+    COOKIE_ADDONS,
+  };
   constructor() {
-    this._loadData();
     this._configureApp();
     this._setRoutes();
     this._run();
   }
 
-  _configureApp() {
+  _configureApp(): void {
     this.app = express();
 
     this.app.use(json());
@@ -25,7 +36,7 @@ export class CookieMakerApp {
 
     this.app.engine(
       '.hbs',
-      hbs({
+      engine({
         extname: '.hbs',
         helpers: handlebarsHelpers,
       })
@@ -33,27 +44,38 @@ export class CookieMakerApp {
     this.app.set('view engine', '.hbs');
   }
 
-  _setRoutes() {
+  _setRoutes(): void {
     this.app.use('/', new HomeRouter(this).router);
     this.app.use('/configurator', new ConfiguratorRouter(this).router);
     this.app.use('/order', new OrderRouter(this).router);
   }
 
-  _run() {
+  _run(): void {
     this.app.listen(3000, 'localhost', () => {
       console.log(`Server is started on http//localhost:3000`);
     });
   }
-  showErrorPage(res, descryption) {
+  showErrorPage(res: Response, descryption: string): void {
     return res.render('error', { descryption });
   }
 
-  getAddonsdFromReq(req) {
-    const { cookieAddons } = req.cookies;
+  getAddonsdFromReq(req: Request): string[] {
+    const { cookieAddons } = req.cookies as {
+      cookieAddons: string;
+    };
     return cookieAddons ? JSON.parse(cookieAddons) : [];
   }
-  getCookieSettings(req) {
-    const { cookieBase: base } = req.cookies;
+  getCookieSettings(req: Request):{
+    addons: string[],
+    base: string | undefined,
+    sum: number,
+    allBases: Map<string, number>
+    allAddons: Map<string, number>
+
+  }; {
+    const { cookieBase: base } = req.cookies as {
+      cookieBase?: string;
+    };
 
     const addons = this.getAddonsdFromReq(req);
 
@@ -77,12 +99,6 @@ export class CookieMakerApp {
       //All possibilities
       allBases,
       allAddons,
-    };
-  }
-  _loadData() {
-    this.data = {
-      COOKIE_BASES,
-      COOKIE_ADDONS,
     };
   }
 }
