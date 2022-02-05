@@ -12,7 +12,9 @@ export class HomeRouter implements MyRouter {
   }
 
   private setUpRoutes(): void {
-    this.router.get('/', this.home);
+    Reflect.get(this, '_restApiCall');
+    console.log(Reflect.get(this, '_restApiCall'));
+    // this.router.get('/', this.home);
   }
 
   @rest('get', '/')
