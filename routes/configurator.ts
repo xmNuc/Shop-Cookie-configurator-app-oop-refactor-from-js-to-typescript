@@ -1,5 +1,4 @@
 import { Request, Response, Router } from 'express';
-import { CookieMakerApp } from '..';
 import { get } from '../decorators/rest.decorators';
 import { MyRouter } from '../types/my-router';
 import { BaseRouter } from './base';
@@ -8,8 +7,6 @@ export class ConfiguratorRouter extends BaseRouter implements MyRouter {
   public readonly urlPrefix = '/configurator';
 
   @get('/select-base/:baseName')
-  @get('/add-addon/:addonName')
-  @get('/delete-addon/:addonName')
   private selectBase = (req: Request, res: Response): void => {
     const { baseName } = req.params;
 
@@ -21,6 +18,8 @@ export class ConfiguratorRouter extends BaseRouter implements MyRouter {
       baseName,
     });
   };
+
+  @get('/add-addon/:addonName')
   private selectAddon = (req: Request, res: Response): void => {
     const { addonName } = req.params;
 
@@ -45,6 +44,7 @@ export class ConfiguratorRouter extends BaseRouter implements MyRouter {
         addonName,
       });
   };
+  @get('/delete-addon/:addonName')
   private deleteAddon = (req: Request, res: Response): void => {
     const { addonName } = req.params;
 
