@@ -12,8 +12,8 @@ export class HomeRouter implements MyRouter {
   }
 
   private setUpRoutes(): void {
-    Reflect.get(this, '_restApiCall');
-    console.log(Reflect.get(this, '_restApiCall'));
+    // Reflect.get(this, '_restApiCalls');
+    console.log(Reflect.get(this, '_restApiCalls'));
     // this.router.get('/', this.home);
   }
 

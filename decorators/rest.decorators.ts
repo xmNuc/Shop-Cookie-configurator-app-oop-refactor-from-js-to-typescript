@@ -10,6 +10,6 @@ export function rest(httpMethod: HttpMethod, path: string) {
 
     ar.push({ httpMethod, path, propertyName });
 
-    Reflect.set(target, '_restApiCall', ar);
+    Reflect.set(target, '_restApiCalls', ar);
   };
 }
